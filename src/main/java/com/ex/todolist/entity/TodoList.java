@@ -1,17 +1,20 @@
 package com.ex.todolist.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "Todolist")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@EqualsAndHashCode
+@ToString
 public class TodoList {
 
     @Id
@@ -25,10 +28,20 @@ public class TodoList {
     private String description; // 설명
 
     @CreatedDate
-    private LocalDateTime created;
+    private LocalDateTime created;  // 생성 날짜
 
-    private Local
+    private LocalDate due; // 마감일
 
+    public void changeTask(String task) {
+        this.task = task;
+    }
 
+    public void changeDescription(String description) {
+        this.description = description;
+    }
+
+    public void changeDue(LocalDate due) {
+        this.due = due;
+    }
 
 }
