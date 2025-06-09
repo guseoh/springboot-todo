@@ -49,8 +49,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="todo, stat : ${todoList}">
-            <td th:text="${stat.index + 1}"></td>
+        <tr th:each="todo, stat : ${todoList}"
+            th:classappend="${todo.status} == 'FINISHED' ? 'text-decoration-line-through text-muted' : ''">
+            <td th:text="${stat.index + 1}">1</td>
             <td th:text="${todo.task}">할 일</td>
             <td th:text="${todo.description}">설명</td>
             <td th:text="${todo.status} ?: 'In progress'">상태</td>
@@ -63,6 +64,7 @@
         </tr>
         </tbody>
     </table>
+
 </div>
 
 <!-- MDBootstrap JS -->
