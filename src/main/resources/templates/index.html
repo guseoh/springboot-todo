@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>To Do App</title>
+
+    <!-- MDBootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">To Do App</h2>
+
+    <!-- 등록 폼 -->
+    <form method="post" th:action="@{/todo/register}" class="row g-3 align-items-end mb-4">
+
+        <div class="col-md-3">
+            <label for="task" class="form-label">할 일</label>
+            <input type="text" id="task" name="task" class="form-control" required>
+        </div>
+
+        <div class="col-md-3">
+            <label for="description" class="form-label">설명</label>
+            <input type="text" id="description" name="description" class="form-control" required>
+        </div>
+
+        <div class="col-md-3">
+            <label for="due" class="form-label">마감일</label>
+            <input type="date" id="due" name="due" class="form-control" required>
+        </div>
+
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary w-100">SAVE</button>
+        </div>
+    </form>
+
+    <!-- 할 일 목록 테이블 -->
+    <table class="table table-bordered text-center">
+        <thead class="table-light">
+        <tr>
+            <th>No.</th>
+            <th>Task</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Due</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="todo, stat : ${todoList}">
+            <td th:text="${stat.index + 1}"></td>
+            <td th:text="${todo.task}">할 일</td>
+            <td th:text="${todo.description}">설명</td>
+            <td th:text="${todo.status} ?: 'In progress'">상태</td>
+            <td th:text="${#temporals.format(todo.created, 'yyyy-MM-dd')}">생성일</td>
+            <td th:text="${todo.due}">마감일</td>
+            <td>
+                <a th:href="@{/todo/delete/{id}(id=${todo.id})}" class="btn btn-danger btn-sm">DELETE</a>
+                <a th:href="@{/todo/finish/{id}(id=${todo.id})}" class="btn btn-success btn-sm">FINISHED</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- MDBootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+
+</body>
+</html>
