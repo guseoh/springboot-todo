@@ -60,4 +60,11 @@ public class TodoService {
                 new IllegalArgumentException("존재하지 않음"));
         todoRepository.delete(todoList);
     }
+
+    public void finishTodo(Long id) {
+        TodoList todoList = todoRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("존재하지 않음"));
+
+        todoList.changeStatus("Completed");
+    }
 }

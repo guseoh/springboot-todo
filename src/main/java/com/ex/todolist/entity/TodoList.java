@@ -27,6 +27,9 @@ public class TodoList {
     @Column
     private String description; // 설명
 
+    @Column
+    private String status; // 상태
+
     @CreatedDate
     private LocalDateTime created;  // 생성 날짜
 
@@ -42,6 +45,10 @@ public class TodoList {
 
     public void changeDue(LocalDate due) {
         this.due = due;
+    }
+
+    public void changeStatus(String status) {
+        this.status = status;
     }
 
 }

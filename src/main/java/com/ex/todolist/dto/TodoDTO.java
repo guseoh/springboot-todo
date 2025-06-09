@@ -15,6 +15,7 @@ public class TodoDTO {
     private Long id;
     private String task;
     private String description;
+    private String status;
     private LocalDateTime created;
     private LocalDate due;
 
@@ -24,7 +25,8 @@ public class TodoDTO {
                 .id(todoList.getId())
                 .task(todoList.getTask())
                 .description(todoList.getDescription())
-                .created(todoList.getCreated())
+                .status(todoList.getStatus())
+                .created(LocalDateTime.now())
                 .due(todoList.getDue())
                 .build();
     }
@@ -35,6 +37,7 @@ public class TodoDTO {
                 .id(id)
                 .task(task)
                 .description(description)
+                .status(status)
                 .created(created)
                 .due(due)
                 .build();
