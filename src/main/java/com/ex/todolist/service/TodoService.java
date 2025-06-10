@@ -44,7 +44,7 @@ public class TodoService {
                 .collect(Collectors.toList());
     }
 
-    public TodoDTO updateTodo(Long id, TodoDTO todoDTO) {
+    public void updateTodo(Long id, TodoDTO todoDTO) {
         TodoList todoList = todoRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("존재하지 않음"));
 
@@ -52,7 +52,7 @@ public class TodoService {
         todoList.changeDescription(todoDTO.getDescription());
         todoList.changeDue(todoDTO.getDue());
 
-        return TodoDTO.toDTO(todoList);
+        TodoDTO.toDTO(todoList);
     }
 
     public void deleteTodo(Long id) {
