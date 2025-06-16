@@ -4,7 +4,6 @@ import com.ex.todolist.entity.TodoList;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -16,7 +15,7 @@ public class TodoDTO {
     private String task;
     private String description;
     private String status;
-    private LocalDateTime created;
+    private LocalDate created;
     private LocalDate due;
 
     // Entity -> DTO
@@ -26,7 +25,7 @@ public class TodoDTO {
                 .task(todoList.getTask())
                 .description(todoList.getDescription())
                 .status(todoList.getStatus())
-                .created(LocalDateTime.now())
+                .created(LocalDate.now())
                 .due(todoList.getDue())
                 .build();
     }
