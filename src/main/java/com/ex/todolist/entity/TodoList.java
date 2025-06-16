@@ -1,5 +1,6 @@
 package com.ex.todolist.entity;
 
+import com.ex.todolist.dto.TodoDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class TodoList {
 
+    // TODO: id 계속 증가하는 문제
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -52,6 +54,15 @@ public class TodoList {
 
     public void changeStatus(String status) {
         this.status = status;
+    }
+
+    public static TodoList toEntity(TodoDTO dto) {
+        return TodoList.builder()
+                .task(dto.getTask())
+                .description(dto.getDescription())
+                .due(dto.getDue())
+                .created(dto.getCreated())
+                .build();
     }
 
 }
