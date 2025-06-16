@@ -3,6 +3,7 @@ package com.ex.todolist.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @EqualsAndHashCode
 @ToString
+@EntityListeners(AuditingEntityListener.class)
 public class TodoList {
 
     @Id
@@ -28,10 +30,11 @@ public class TodoList {
     private String description; // 설명
 
     @Column
-    private String status; // 상태
+    @Builder.Default
+    private String status = "In progress"; // 상태
 
     @CreatedDate
-    private LocalDateTime created;  // 생성 날짜
+    private LocalDate created;  // 생성 날짜
 
     private LocalDate due; // 마감일
 
