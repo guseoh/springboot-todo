@@ -65,7 +65,7 @@ public class TodoService {
     }
 
     public List<TodoDTO> searchByTask(String keyword) {
-        return todoRepository.findByTask(keyword).stream()
+        return todoRepository.findByTaskContaining(keyword).stream()
                 .map(TodoDTO::toDTO)
                 .collect(Collectors.toList());
     }
