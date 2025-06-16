@@ -29,17 +29,4 @@ public class TodoDTO {
                 .due(todoList.getDue())
                 .build();
     }
-
-    // DTO -> Entity
-    public TodoList toEntity() {
-        return TodoList.builder()
-                .id(id)
-                .task(task)
-                .description(description)
-                .status(status)
-                .created(created)
-                .due(due)
-                .build();
-    }
-
 }
