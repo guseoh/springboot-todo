@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @Log4j2
@@ -39,6 +41,7 @@ public class TodoController {
 
     @GetMapping("/finish/{id}")
     public String finish(@PathVariable("id") Long id) {
+
         log.info("할 일 완료........................");
         todoService.finishTodo(id);
 
@@ -58,5 +61,13 @@ public class TodoController {
         todoService.updateTodo(id, todoDTO);
 
         return "redirect:/todo/";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam("keyword") String keyword, Model model) {
+        log.info("검색 완료........................");
+        List<TodoDTO> result = todoService.searchByTask(keyword);
+        model.addAttribute("todolist", result);
+        return "todo";
     }
 }

@@ -15,7 +15,7 @@
     <!-- 🔍 검색 폼 -->
     <form th:action="@{/todo/search}" method="get" class="row g-3 align-items-center mb-3">
         <div class="col-md-9">
-            <input type="text" name="keyword" class="form-control" placeholder="할 일 검색 (Task)">
+            <input type="text" name="keyword" class="form-control" placeholder="할 일 검색 (Task)" th:value="${param.keyword}">
         </div>
         <div class="col-md-3">
             <button type="submit" class="btn btn-outline-primary w-100">검색</button>
@@ -24,28 +24,24 @@
 
     <!-- 등록 폼 -->
     <form method="post" th:action="@{/todo/register}" class="row g-3 align-items-end mb-4">
-
         <div class="col-md-3">
             <label for="task" class="form-label">할 일</label>
             <input type="text" id="task" name="task" class="form-control" required>
         </div>
-
         <div class="col-md-3">
             <label for="description" class="form-label">설명</label>
             <input type="text" id="description" name="description" class="form-control" required>
         </div>
-
         <div class="col-md-3">
             <label for="due" class="form-label">마감일</label>
             <input type="date" id="due" name="due" class="form-control" required>
         </div>
-
         <div class="col-md-3">
             <button type="submit" class="btn btn-primary w-100">SAVE</button>
         </div>
     </form>
 
-    <!-- 할 일 목록 테이블 -->
+    <!-- 목록 테이블 -->
     <table class="table table-bordered text-center">
         <thead class="table-light">
         <tr>

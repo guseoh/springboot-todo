@@ -64,6 +64,12 @@ public class TodoService {
         }
     }
 
+    public List<TodoDTO> searchByTask(String keyword) {
+        return todoRepository.findByTask(keyword).stream()
+                .map(TodoDTO::toDTO)
+                .collect(Collectors.toList());
+    }
+
     private TodoList getTodoList(Long id) {
         return todoRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(id));
