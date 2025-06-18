@@ -2,6 +2,7 @@ package com.ex.todolist.controller;
 
 import com.ex.todolist.dto.TodoDTO;
 import com.ex.todolist.service.TodoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,7 @@ public class TodoController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute TodoDTO todoDTO) {
+    public String register(@Valid @ModelAttribute TodoDTO todoDTO) {
         log.info("투두리스트 등록......................");
         todoService.register(todoDTO);
         return "redirect:/todo/";
@@ -56,7 +57,7 @@ public class TodoController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@PathVariable("id") Long id, @ModelAttribute TodoDTO todoDTO) {
+    public String update(@PathVariable("id") Long id, @Valid @ModelAttribute TodoDTO todoDTO) {
         log.info("수정 완료.......................");
         todoService.updateTodo(id, todoDTO);
 

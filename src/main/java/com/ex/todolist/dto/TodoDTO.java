@@ -1,6 +1,8 @@
 package com.ex.todolist.dto;
 
 import com.ex.todolist.entity.TodoList;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -12,8 +14,15 @@ import java.time.LocalDate;
 public class TodoDTO {
 
     private Long id;
+
+    @Pattern(regexp = "^[a-zA-Z0-9가-힣\\s]{1,50}$", message = "할 일(task)은 한글, 영문, 숫자 포함 1~50자 이내여야 합니다.")
+    @NotBlank(message = "할 일(Task)이 비어있습니다.")
     private String task;
+
+    @Pattern(regexp = "^[a-zA-Z0-9가-힣\\s.,!?()\\-]{0,200}$", message = "설명(description)은 특수문자 .,!?-()를 포함하여 200자 이내여야 합니다.")
+    @NotBlank(message = "설명이 비어있습니다.")
     private String description;
+
     private String status;
     private LocalDate created;
     private LocalDate due;
