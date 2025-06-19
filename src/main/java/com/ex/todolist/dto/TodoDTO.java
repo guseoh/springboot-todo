@@ -19,7 +19,7 @@ public class TodoDTO {
     @NotBlank(message = "할 일(Task)이 비어있습니다.")
     private String task;
 
-    @Pattern(regexp = "^[a-zA-Z0-9가-힣\\s.,!?()\\-]{0,200}$", message = "설명(description)은 특수문자 .,!?-()를 포함하여 200자 이내여야 합니다.")
+    @Pattern(regexp = "^[a-zA-Z0-9가-힣\\s]{1,50}$", message = "설명(description)은 특수문자 .,!?-()를 포함하여 200자 이내여야 합니다.")
     @NotBlank(message = "설명이 비어있습니다.")
     private String description;
 

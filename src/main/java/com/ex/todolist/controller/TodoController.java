@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -57,7 +59,14 @@ public class TodoController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@PathVariable("id") Long id, @Valid @ModelAttribute TodoDTO todoDTO) {
+    public String update(@PathVariable("id") Long id, @Valid @ModelAttribute("todo") TodoDTO todoDTO, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("수정 실패.............................");
+            bindingResult.addError(new FieldError("todoDTO", "task", ));
+            model.addAttribute("todo", todoDTO);
+            return "edit";
+        }
         log.info("수정 완료.......................");
         todoService.updateTodo(id, todoDTO);
 
