@@ -63,7 +63,6 @@ public class TodoController {
 
         if (bindingResult.hasErrors()) {
             log.info("수정 실패.............................");
-            //bindingResult.addError(new FieldError("todoDTO", "task", ));
             model.addAttribute("todo", todoDTO);
             return "edit";
         }
