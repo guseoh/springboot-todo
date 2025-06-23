@@ -36,11 +36,18 @@ public class TodoList {
     private String status = "In progress"; // 상태
 
     @CreatedDate
+    @Column(name = "created_date")
     private LocalDate created;  // 생성 날짜
 
+    @Column(name = "due_date")
     private LocalDate due; // 마감일
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public void changeTask(String task) {
+
         this.task = task;
     }
 
