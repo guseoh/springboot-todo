@@ -10,30 +10,25 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4">수정 페이지</h2>
     <form th:action="@{/todo/edit/{id}(id=${todo.id})}" th:object="${todo}" method="post" class="row g-3">
-        <div class="col-md-4">
-            <label for="task" class="form-label">할 일</label>
-            <input type="text" id="task" th:field="*{task}" class="form-control" required/>
-            <div th:if="${#fields.hsaErrors('task')}" class="text-danger small">
-                <span th:errors="*{task}">할 일 오류</span>
-            </div>
+
+        <div class="col-12">
+            <label for="task" class="form-label fs-5">할 일</label>
+            <input type="text" id="task" th:field="*{task}" class="form-control fs-5" required/>
         </div>
 
-        <div class="col-md-4">
-            <label for="description" class="form-label">설명</label>
-            <input type="text" id="description" th:field="*{description}" class="form-control" required/>
-            <div th:if="${#fields.hasErrors('description')}" class="text-danger small">
-                <span th:errors="*{description}">설명 오류</span>
-            </div>
+        <div class="col-12">
+            <label for="description" class="form-label fs-5">설명</label>
+            <input type="text" id="description" th:field="*{description}" class="form-control fs-5" required/>
         </div>
 
-        <div class="col-md-4">
-            <label for="due" class="form-label">마감일</label>
-            <input type="date" id="due" th:field="*{due}" class="form-control" required/>
+        <div class="col-12">
+            <label for="due" class="form-label fs-5">마감일</label>
+            <input type="date" id="due" th:field="*{due}" class="form-control fs-5"/>
         </div>
 
-        <div class="col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Update</button>
-            <a th:href="@{/todo/}" class="btn btn-secondary">Cancel</a>
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary w-25">Update</button>
+            <a th:href="@{/todo/}" class="btn btn-secondary w-25">Cancel</a>
         </div>
     </form>
 </div>

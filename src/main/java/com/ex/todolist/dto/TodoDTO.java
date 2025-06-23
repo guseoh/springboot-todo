@@ -1,6 +1,7 @@
 package com.ex.todolist.dto;
 
 import com.ex.todolist.entity.TodoList;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
@@ -25,6 +26,8 @@ public class TodoDTO {
 
     private String status;
     private LocalDate created;
+
+    @Future(message = "미래 날짜여야 합니다.")
     private LocalDate due;
 
     // Entity -> DTO
