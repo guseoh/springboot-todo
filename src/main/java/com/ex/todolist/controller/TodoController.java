@@ -8,7 +8,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,14 +28,14 @@ public class TodoController {
 
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute TodoDTO todoDTO) {
-        log.info("투두리스트 등록......................");
+        log.info("해당 task = {} 등록 완료......................", todoDTO.getTask());
         todoService.register(todoDTO);
         return "redirect:/todo/";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
-        log.info("제거 완료....................");
+        log.info("해당 id = {} 제거 왼료......................", id);
         todoService.deleteTodo(id);
 
         return "redirect:/todo/";
@@ -45,7 +44,7 @@ public class TodoController {
     @GetMapping("/finish/{id}")
     public String finish(@PathVariable("id") Long id) {
 
-        log.info("할 일 완료........................");
+        log.info("해당 id = {} In Progress -> Completed......................", id);
         todoService.finishTodo(id);
 
         return "redirect:/todo/";
@@ -62,11 +61,11 @@ public class TodoController {
     public String update(@PathVariable("id") Long id, @Valid @ModelAttribute("todo") TodoDTO todoDTO, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            log.info("수정 실패.............................");
+            log.info("해당 id = {}, 해당 task = {} 수정 실패......................", id, todoDTO.getTask());
             model.addAttribute("todo", todoDTO);
             return "edit";
         }
-        log.info("수정 완료.......................");
+        log.info("해당 id = {}, 해당 task = {} 수정 완료......................", id, todoDTO.getTask());
         todoService.updateTodo(id, todoDTO);
 
         return "redirect:/todo/";
@@ -74,7 +73,7 @@ public class TodoController {
 
     @GetMapping("/search")
     public String search(@RequestParam("keyword") String keyword, Model model) {
-        log.info("검색 완료........................");
+        log.info("해당 keyword = {} 검색 완료...................... ", keyword);
         List<TodoDTO> result = todoService.searchByTask(keyword);
         model.addAttribute("todolist", result);
         return "todo";
