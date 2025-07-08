@@ -1,7 +1,6 @@
 package com.ex.todolist.repository;
 
 import com.ex.todolist.entity.TodoList;
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +9,7 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @Transactional
@@ -28,7 +24,7 @@ class TodoRepositoryTest {
         TodoList todoList = TodoList.builder()
                 .task("테스트 할 일1")
                 .description("테스트 설명1")
-                .created(LocalDateTime.now())
+                .created(LocalDate.now())
                 .due(LocalDate.now())
                 .build();
 
