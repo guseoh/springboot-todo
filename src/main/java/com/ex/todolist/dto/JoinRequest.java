@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * 회원가입 DTO
+ */
 @Getter
 @Setter // Todo: 제거하고 싶음
 @NoArgsConstructor
