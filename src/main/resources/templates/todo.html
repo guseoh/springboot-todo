@@ -10,7 +10,9 @@
 <body>
 
 <div class="container mt-5">
-    <h2 class="text-center mb-4">To Do List</h2>
+    <h2 class="text-center mb-4">
+        <a th:href="@{/todo/}" class="text-decoration-none text-dark">To Do List </a>
+    </h2>
 
     <!-- 🔍 검색 폼 -->
     <form th:action="@{/todo/search}" method="get" class="row g-3 align-items-center mb-3">
