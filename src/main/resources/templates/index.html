@@ -9,8 +9,20 @@
 </head>
 <body>
 
+<!-- ─────────── 🔑 로그인/회원가입 버튼 영역 ─────────── -->
+<div class="container mt-3">
+    <div class="d-flex justify-content-end gap-2">
+        <a th:href="@{/signup}"  class="btn btn-outline-secondary btn-sm">회원가입</a>
+        <a th:href="@{/login}"   class="btn btn-primary btn-sm">로그인</a>
+    </div>
+</div>
+<!-- ──────────────────────────────────────────────── -->
+
 <div class="container mt-5">
-    <h2 class="text-center mb-4">To Do List</h2>
+    <h2 class="text-center mb-4">
+        <a th:href="@{/todo/}" class="text-decoration-none text-dark">To Do List </a>
+    </h2>
+
 
     <!-- 🔍 검색 폼 -->
     <form th:action="@{/todo/search}" method="get" class="row g-3 align-items-center mb-3">
@@ -77,6 +89,31 @@
     </table>
 
 </div>
+
+<nav aria-label="Todo list page navigation">
+    <ul class="pagination justify-content-center my-4">
+
+        <li class="page-item" th:classappend="${page == 1} ? 'disabled'">
+            <a class="page-link" th:href="@{|/todo?page=${page-1}|}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <li class="page-item" th:each="i : ${#numbers.sequence(1,5)}"
+            th:classappend="${page == i} ? 'active'">
+            <a class="page-link" th:text="${i}"
+               th:href="@{|/todo?page=${i}|}">1</a>
+        </li>
+
+        <li class="page-item" th:classappend="${page == 5} ? 'disabled'">
+            <a class="page-link" th:href="@{|/todo?page=${page+1}|}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+
+    </ul>
+</nav>
+<!-- ─────────────────────────────────── -->
 
 <!-- MDBootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
