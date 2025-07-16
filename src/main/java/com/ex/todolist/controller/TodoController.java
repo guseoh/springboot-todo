@@ -26,17 +26,7 @@ public class TodoController {
                         @RequestParam(defaultValue = "10") int size,
                         Model model) {
         Page<TodoDTO> result = todoService.getTodoPage(page - 1, size);
-        model.addAttribute("todoPage", result);
-        model.addAttribute("todoList", result.getContent());
-
-        int current = result.getNumber() + 1;
-        int start = 1;
-        int end = Math.min(5, result.getTotalPages());
-
-        model.addAttribute("page", current);
-        model.addAttribute("start", start);
-        model.addAttribute("end", end);
-
+        addPagingAttributes(model, result, page);
         model.addAttribute("todoDTO", new TodoDTO());
 
         return "/index";
@@ -48,15 +38,8 @@ public class TodoController {
         if (bindingResult.hasErrors()) {
             log.info("해당 task = {} 등록 실패......................................", todoDTO.getTask());
             Page<TodoDTO> result = todoService.getTodoPage(0, 10);
-            model.addAttribute("todoPage", result);
-            model.addAttribute("todoList", result.getContent());
-
-            model.addAttribute("page", 1);
-            model.addAttribute("start", 1);
-            model.addAttribute("end", Math.min(5, result.getTotalPages()));
-
+            addPagingAttributes(model, result, 1);
             model.addAttribute("todoDTO", todoDTO);
-
             return "/index";
         }
 
@@ -111,20 +94,18 @@ public class TodoController {
         log.info("해당 keyword = {} 검색 완료...................... ", keyword);
 
         Page<TodoDTO> result = todoService.searchByTask(keyword, page - 1, size);
-        model.addAttribute("todoPage", result);
-        model.addAttribute("todolist", result.getContent());
+        addPagingAttributes(model, result, page);
         model.addAttribute("keyword", keyword);
-
-        int current = result.getNumber() + 1;
-        int start = 1;
-        int end = Math.min(5, result.getTotalPages());
-
-        model.addAttribute("page", current);
-        model.addAttribute("start", start);
-        model.addAttribute("end", end);
-
         model.addAttribute("todoDTO", new TodoDTO());
 
         return "todo";
+    }
+
+    private void addPagingAttributes(Model model, Page<TodoDTO> result, int current) {
+        model.addAttribute("todoPage", result);
+        model.addAttribute("todolist", result.getContent());
+        model.addAttribute("page", current);
+        model.addAttribute("start", 1);
+        model.addAttribute("end", Math.min(5, result.getTotalPages()));
     }
 }

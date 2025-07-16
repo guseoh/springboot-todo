@@ -74,7 +74,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="todo, stat : ${todoList}"
+        <tr th:each="todo, stat : ${todolist}"
             th:classappend="${todo.status} == 'FINISHED' ? 'text-decoration-line-through text-muted' : ''">
             <td th:text="${stat.index + 1}">1</td>
             <td th:text="${todo.task}">할 일</td>
