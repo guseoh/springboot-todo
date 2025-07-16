@@ -9,11 +9,10 @@
 </head>
 <body>
 
-<!-- ─────────── 🔑 로그인/회원가입 버튼 영역 ─────────── -->
 <div class="container mt-3">
     <div class="d-flex justify-content-end gap-2">
-        <a th:href="@{/signup}"  class="btn btn-outline-secondary btn-sm">회원가입</a>
-        <a th:href="@{/login}"   class="btn btn-primary btn-sm">로그인</a>
+        <a th:href="@{/signup}" class="btn btn-outline-secondary btn-sm">회원가입</a>
+        <a th:href="@{/login}" class="btn btn-primary btn-sm">로그인</a>
     </div>
 </div>
 <!-- ──────────────────────────────────────────────── -->
@@ -24,7 +23,6 @@
     </h2>
 
 
-    <!-- 🔍 검색 폼 -->
     <form th:action="@{/todo/search}" method="get" class="row g-3 align-items-center mb-3">
         <div class="col-md-9">
             <input type="text" name="keyword" class="form-control" placeholder="할 일 검색 (Task)">
@@ -34,7 +32,6 @@
         </div>
     </form>
 
-    <!-- 등록 폼 -->
     <form method="post" th:action="@{/todo/register}" class="row g-3 align-items-end mb-4">
 
         <div class="col-md-3">
@@ -93,27 +90,36 @@
 <nav aria-label="Todo list page navigation">
     <ul class="pagination justify-content-center my-4">
 
-        <li class="page-item" th:classappend="${page == 1} ? 'disabled'">
-            <a class="page-link" th:href="@{|/todo?page=${page-1}|}" aria-label="Previous">
+        <!-- 이전 버튼 -->
+        <li class="page-item" th:classappend="${todoPage.first}? 'disabled'">
+            <a class="page-link"
+               th:href="@{|/todo?page=${page-1}|}"
+               aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
 
-        <li class="page-item" th:each="i : ${#numbers.sequence(1,5)}"
+        <!-- 숫자 버튼: start ~ end (최대 5) -->
+        <li class="page-item"
+            th:each="i : ${#numbers.sequence(start, end)}"
             th:classappend="${page == i} ? 'active'">
-            <a class="page-link" th:text="${i}"
+            <a class="page-link"
+               th:text="${i}"
                th:href="@{|/todo?page=${i}|}">1</a>
         </li>
 
-        <li class="page-item" th:classappend="${page == 5} ? 'disabled'">
-            <a class="page-link" th:href="@{|/todo?page=${page+1}|}" aria-label="Next">
+        <!-- 다음 버튼 -->
+        <li class="page-item" th:classappend="${todoPage.last}? 'disabled'">
+            <a class="page-link"
+               th:href="@{|/todo?page=${page+1}|}"
+               aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
 
     </ul>
 </nav>
-<!-- ─────────────────────────────────── -->
+
 
 <!-- MDBootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>

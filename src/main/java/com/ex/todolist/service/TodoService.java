@@ -5,6 +5,10 @@ import com.ex.todolist.entity.TodoList;
 import com.ex.todolist.exception.EntityNotFoundException;
 import com.ex.todolist.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,12 +35,18 @@ public class TodoService {
         return TodoDTO.toDTO(todoList);
     }
 
-    @Transactional(readOnly = true)
-    public List<TodoDTO> getAllTodo() {
-        return todoRepository.findAll()
-                .stream()
-                .map(TodoDTO::toDTO)
-                .collect(Collectors.toList());
+//    @Transactional(readOnly = true)
+//    public List<TodoDTO> getAllTodo() {
+//        return todoRepository.findAll()
+//                .stream()
+//                .map(TodoDTO::toDTO)
+//                .collect(Collectors.toList());
+//    }
+
+    public Page<TodoDTO> getTodoPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("created").descending());
+        return todoRepository.findAll(pageable)
+                .map(TodoDTO::toDTO);
     }
 
     public TodoDTO updateTodo(Long id, TodoDTO todoDTO) {
