@@ -37,11 +37,29 @@ public class TodoController {
         model.addAttribute("start", start);
         model.addAttribute("end", end);
 
+        model.addAttribute("todoDTO", new TodoDTO());
+
         return "/index";
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute TodoDTO todoDTO) {
+    public String register(@Valid @ModelAttribute TodoDTO todoDTO, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("해당 task = {} 등록 실패......................................", todoDTO.getTask());
+            Page<TodoDTO> result = todoService.getTodoPage(0, 10);
+            model.addAttribute("todoPage", result);
+            model.addAttribute("todoList", result.getContent());
+
+            model.addAttribute("page", 1);
+            model.addAttribute("start", 1);
+            model.addAttribute("end", Math.min(5, result.getTotalPages()));
+
+            model.addAttribute("todoDTO", todoDTO);
+
+            return "/index";
+        }
+
         log.info("해당 task = {} 등록 완료......................", todoDTO.getTask());
         todoService.register(todoDTO);
         return "redirect:/todo";
@@ -86,10 +104,27 @@ public class TodoController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam("keyword") String keyword, Model model) {
+    public String search(@RequestParam("keyword") String keyword,
+                         @RequestParam(defaultValue = "1") int page,
+                         @RequestParam(defaultValue = "10") int size,
+                         Model model) {
         log.info("해당 keyword = {} 검색 완료...................... ", keyword);
-        List<TodoDTO> result = todoService.searchByTask(keyword);
-        model.addAttribute("todolist", result);
+
+        Page<TodoDTO> result = todoService.searchByTask(keyword, page - 1, size);
+        model.addAttribute("todoPage", result);
+        model.addAttribute("todolist", result.getContent());
+        model.addAttribute("keyword", keyword);
+
+        int current = result.getNumber() + 1;
+        int start = 1;
+        int end = Math.min(5, result.getTotalPages());
+
+        model.addAttribute("page", current);
+        model.addAttribute("start", start);
+        model.addAttribute("end", end);
+
+        model.addAttribute("todoDTO", new TodoDTO());
+
         return "todo";
     }
 }

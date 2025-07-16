@@ -74,10 +74,10 @@ public class TodoService {
         }
     }
 
-    public List<TodoDTO> searchByTask(String keyword) {
-        return todoRepository.findByTaskContaining(keyword).stream()
-                .map(TodoDTO::toDTO)
-                .collect(Collectors.toList());
+    public Page<TodoDTO> searchByTask(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+        return todoRepository.findByTaskContaining(keyword, pageable)
+                .map(TodoDTO::toDTO);
     }
 
     private TodoList getTodoList(Long id) {

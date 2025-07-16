@@ -15,13 +15,11 @@
         <a th:href="@{/login}" class="btn btn-primary btn-sm">로그인</a>
     </div>
 </div>
-<!-- ──────────────────────────────────────────────── -->
 
 <div class="container mt-5">
     <h2 class="text-center mb-4">
-        <a th:href="@{/todo/}" class="text-decoration-none text-dark">To Do List </a>
+        <a th:href="@{/todo}" class="text-decoration-none text-dark">To Do List </a>
     </h2>
-
 
     <form th:action="@{/todo/search}" method="get" class="row g-3 align-items-center mb-3">
         <div class="col-md-9">
@@ -32,21 +30,29 @@
         </div>
     </form>
 
-    <form method="post" th:action="@{/todo/register}" class="row g-3 align-items-end mb-4">
-
+    <form method="post" th:action="@{/todo/register}" th:object="${todoDTO}" class="row g-3 align-items-end mb-4">
         <div class="col-md-3">
             <label for="task" class="form-label">할 일</label>
-            <input type="text" id="task" name="task" class="form-control" required>
+            <input type="text" th:field="*{task}" id="task" class="form-control" required>
+            <div th:if="${#fields.hasErrors('task')}" class="text-danger small">
+                <span th:errors="*{task}"></span>
+            </div>
         </div>
 
         <div class="col-md-3">
             <label for="description" class="form-label">설명</label>
-            <input type="text" id="description" name="description" class="form-control" required>
+            <input type="text" th:field="*{description}" id="description" class="form-control" required>
+            <div th:if="${#fields.hasErrors('description')}" class="text-danger small">
+                <span th:errors="*{description}"></span>
+            </div>
         </div>
 
         <div class="col-md-3">
             <label for="due" class="form-label">마감일</label>
-            <input type="date" id="due" name="due" class="form-control" required>
+            <input type="date" th:field="*{due}" id="due" class="form-control" required>
+            <div th:if="${#fields.hasErrors('due')}" class="text-danger small">
+                <span th:errors="*{due}"></span>
+            </div>
         </div>
 
         <div class="col-md-3">
@@ -54,7 +60,7 @@
         </div>
     </form>
 
-    <!-- 할 일 목록 테이블 -->
+
     <table class="table table-bordered text-center">
         <thead class="table-light">
         <tr>
@@ -90,7 +96,6 @@
 <nav aria-label="Todo list page navigation">
     <ul class="pagination justify-content-center my-4">
 
-        <!-- 이전 버튼 -->
         <li class="page-item" th:classappend="${todoPage.first}? 'disabled'">
             <a class="page-link"
                th:href="@{|/todo?page=${page-1}|}"
@@ -99,7 +104,6 @@
             </a>
         </li>
 
-        <!-- 숫자 버튼: start ~ end (최대 5) -->
         <li class="page-item"
             th:each="i : ${#numbers.sequence(start, end)}"
             th:classappend="${page == i} ? 'active'">
@@ -108,7 +112,6 @@
                th:href="@{|/todo?page=${i}|}">1</a>
         </li>
 
-        <!-- 다음 버튼 -->
         <li class="page-item" th:classappend="${todoPage.last}? 'disabled'">
             <a class="page-link"
                th:href="@{|/todo?page=${page+1}|}"
