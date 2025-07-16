@@ -48,17 +48,16 @@ public class TodoController {
         return "redirect:/todo";
     }
 
-    @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
+    //todo: 정리
+    @PostMapping("/delete")
+    public String delete(@RequestParam("id") Long id) {
         log.info("해당 id = {} 제거 왼료......................", id);
         todoService.deleteTodo(id);
-
         return "redirect:/todo";
     }
 
-    @GetMapping("/finish/{id}")
-    public String finish(@PathVariable("id") Long id) {
-
+    @PostMapping("/finish")
+    public String finish(@RequestParam("id") Long id) {
         log.info("해당 id = {} In Progress -> Completed......................", id);
         todoService.finishTodo(id);
 
