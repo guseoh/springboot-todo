@@ -1,2 +1,21 @@
 ## 진행 사항
 - [ ] 기본적인 API 설계 완료
+- [ ] DB 모델링 및 ERD 설계
+- [ ] CRUD 기능 구현
+- [ ] Thymeleaf + Bootstrap을 활용한 UI 구성
+- [ ] 유효성 검사 및 예외 처리 전역화
+- [ ] 페이징 처리 및 정렬 기능 구현
+- [ ] 할 일 검색 기능 구현
+- [ ] 생성일, 마감일 기준 필터링 기능 구현
+- [ ] 클린 아키텍처 및 서비스 계층 리팩토링
+- [ ] DTO <-> Entity 매핑 구조 정리 및 리팩토링
+- [ ] 테스트 코드 작성 (단위, 통합) 및 커버리지 확인
+- [ ] Rest Docs 적용을 통한 API 문서 자동화
+- [ ] 도커(Docker) 및 docker-compose를 이용한 환경 세팅
+- [ ] Jenkins 또는 GitHub Actions를 활용한 CI/CD 구축
+- [ ] 사용자 인증 및 로그인 기능 추가
+    - [x] Session
+    - [ ] Spring Security
+- [ ] WebSocket 기반 실시간 투두 공유/알림 기능 추가 (예정)
+- [ ] Elasticsearch 기반 할 일 검색 기능 고도화 (예정)
+- [ ] AWS EC2 기반 배포 자동화 및 HTTPS 인증서 적용 (예정)
